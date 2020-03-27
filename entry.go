@@ -1,10 +1,10 @@
 package rest
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"os"
 	"time"
+	"github.com/gin-gonic/gin"
 	"github.com/keithaknight/go-rest-api-docker-gin-arangodb/handlers"
 	"github.com/keithaknight/go-rest-api-docker-gin-arangodb/queries"
 )
