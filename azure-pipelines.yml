@@ -13,14 +13,14 @@ variables:
   containerRegistry: 'ffcontainers.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
-  
+
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
 stages:
 - stage: Build
   displayName: Build and push stage
-  jobs:  
+  jobs:
   - job: Build
     displayName: Build
     pool:
@@ -42,9 +42,9 @@ stages:
     - task: Go@0
       inputs:
         command: 'test'
-        arguments: '-v'
+        arguments: '-v ./...'
         workingDirectory: '$(System.DefaultWorkingDirectory)'
-        
+
 # Build and push an image to Azure Container Registry
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 

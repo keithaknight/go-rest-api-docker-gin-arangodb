@@ -1,20 +1,16 @@
-package main
+package queries
 
 import (
 	"context"
 	"crypto/tls"
-
 	driver "github.com/arangodb/go-driver"
 	arangoHttp "github.com/arangodb/go-driver/http"
 )
 
-type queryExecutor interface {
-	execute(queryText string, bindVars map[string]interface{}) ([]map[string]interface{}, error)
-}
-
-type arangoDbQueryExecutor struct {
+//ArangoDbQueryExecutor is the primary type for executing queries
+type ArangoDbQueryExecutor struct {
 	db driver.Database
-	queryExecutor
+	QueryExecutor
 }
 
 func initializeArangoDb() (driver.Database, error) {
@@ -43,7 +39,8 @@ func initializeArangoDb() (driver.Database, error) {
 	return db, nil
 }
 
-func (q *arangoDbQueryExecutor) execute(queryText string, bindVars map[string]interface{}) ([]map[string]interface{}, error) {
+//Execute runs the specified query
+func (q *ArangoDbQueryExecutor) Execute(queryText string, bindVars map[string]interface{}) ([]map[string]interface{}, error) {
 	if q.db == nil {
 		db, err := initializeArangoDb()
 		if err != nil {
@@ -77,4 +74,10 @@ func (q *arangoDbQueryExecutor) execute(queryText string, bindVars map[string]in
 	}
 
 	return data, nil
+}
+
+//NewQueryExecutor returns a new query executor
+func NewQueryExecutor() ArangoDbQueryExecutor {
+	qe := ArangoDbQueryExecutor{}
+	return qe
 }

@@ -1,7 +1,8 @@
-package main
+package queries
 
-func getEntityByID(executor queryExecutor, collectionName string, id string) (map[string][]map[string]interface{}, error) {
-	queryResults, err := executor.execute(`
+//GetEntityByID queries the specified collection for the given id
+func GetEntityByID(executor QueryExecutor, collectionName string, id string) (map[string][]map[string]interface{}, error) {
+	queryResults, err := executor.Execute(`
 		FOR u IN @@coll
 		FILTER u._key == @uId
 		RETURN u`, map[string]interface{}{

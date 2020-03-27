@@ -1,4 +1,4 @@
-package main
+package queries
 
 import (
 	"testing"
@@ -7,14 +7,14 @@ import (
 func TestArangoDbQueryExecutor(t *testing.T) {
 	config := newArangoDbConfig()
 
-	var qe queryExecutor
+	var qe QueryExecutor
 	if config.password != "" {
-		qe = &arangoDbQueryExecutor{}
+		qe = &ArangoDbQueryExecutor{}
 	} else {
-		qe = &mockQueryExecutor{}
+		qe = &MockQueryExecutor{}
 	}
 
-	results, err := qe.execute("FOR u IN users LIMIT 1 RETURN u", nil)
+	results, err := qe.Execute("FOR u IN users LIMIT 1 RETURN u", nil)
 	if err != nil {
 		t.Fail()
 	}

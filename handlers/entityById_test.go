@@ -1,17 +1,17 @@
-package main
+package handlers
 
 import (
 	"net/http"
-	"os"
 	"reflect"
 	"testing"
+	"github.com/keithaknight/go-rest-api-docker-gin-arangodb/queries"
 )
 
 type mockRequestContext struct {
 	code int
 	obj  interface{}
 	expectedID string
-	requestContext
+	RequestContext
 }
 
 func (c *mockRequestContext) JSON(code int, obj interface{}) {
@@ -30,8 +30,8 @@ func (c *mockRequestContext) ShouldBindUri(obj interface{}) error {
 
 func TestGetEntityByIDRouteNullId(t *testing.T) {
 	c := mockRequestContext{ expectedID: ""}
-	qe := mockQueryExecutor{}
-	getEntityByIDRoute(&c, &qe, "firms")
+	qe := queries.MockQueryExecutor{}
+	GetEntityByIDRoute(&c, &qe, "firms")
 
 	if c.code != http.StatusBadRequest {
 		t.Fail()
@@ -44,34 +44,14 @@ func TestGetEntityByIDRouteNullId(t *testing.T) {
 
 func TestGetEntityByIDRouteWithId(t *testing.T) {
 	c := mockRequestContext{ expectedID: "testId"}
-	qe := mockQueryExecutor{}
-	getEntityByIDRoute(&c, &qe, "firms")
+	qe := queries.MockQueryExecutor{}
+	GetEntityByIDRoute(&c, &qe, "firms")
 
 	if c.code != http.StatusOK {
 		t.Fail()
 	}
 
 	if c.obj == nil {
-		t.Fail()
-	}
-}
-
-func TestGetServerAddrDefault(t *testing.T) {
-	os.Setenv("HOST", "")
-	os.Setenv("PORT", "")
-	addr := getServerAddr()
-
-	if addr != "127.0.0.1:8080" {
-		t.Fail()
-	}
-}
-
-func TestGetServerAddrEnvVar(t *testing.T) {
-	os.Setenv("HOST", "0.0.0.0")
-	os.Setenv("PORT", "80")
-	addr := getServerAddr()
-
-	if addr != "0.0.0.0:80" {
 		t.Fail()
 	}
 }
