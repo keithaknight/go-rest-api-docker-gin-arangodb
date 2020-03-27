@@ -9,7 +9,7 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '36284702-7f77-4551-afdb-ff2e418b3875'
-  imageRepository: 'go-api'
+  imageRepository: 'go-restapi'
   containerRegistry: 'ffcontainers.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'

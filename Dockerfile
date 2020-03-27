@@ -4,19 +4,17 @@
 FROM golang:latest AS buildContainer
 WORKDIR /go/src/app
 
-RUN go get github.com/gin-gonic/gin
-RUN go get github.com/arangodb/go-driver
+COPY . .
 
-COPY *.go ./
-
-#flags: -s -w to remove debug info and symbol table
-RUN CGO_ENABLED=0 GOOS=linux go build -ldflags "-s -w" -a -installsuffix cgo -o api .
+#flags: -s -w to remove symbol table and debug info
+#CGO_ENALBED=0 is required for the code to run properly when copied alpine
+RUN CGO_ENABLED=0 GOOS=linux go build -v -mod mod -ldflags "-s -w" -o restapi .
 
 #Now build the runtime container, just a stripped down linux and copy the
 #binary to it.
 FROM alpine:latest
 WORKDIR /app
-COPY --from=buildContainer /go/src/app .
+COPY --from=buildContainer /go/src/app/restapi .
 
 ENV GIN_MODE release
 
@@ -24,4 +22,4 @@ ENV HOST 0.0.0.0
 ENV PORT 8080
 EXPOSE 8080
 
-CMD ["./api"]
+CMD ["./restapi"]
