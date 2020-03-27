@@ -29,7 +29,7 @@ or through a configuration object in arangoConfig.go
 - ARANGODB_DATABASE (database name)
 
 ## Build
-####Local:
+#### Local:
 `$ go build .`
 
 #### Docker
@@ -47,7 +47,7 @@ After building the docker image, it will say: 'Successfully built {IMAGE HASH}'.
 Use the image hash to start the container.  For legibility, you can
 assign a tag to the image and reference it by tag name instead.
 
-`docker run -p 8080:8080 {IMAGE HASH}`
+`$ docker run -p 8080:8080 {IMAGE HASH}`
 
 ## Calling:
-`curl http://localhost:8080/users/{user id}`
+`$ curl http://localhost:8080/users/{user id}`
