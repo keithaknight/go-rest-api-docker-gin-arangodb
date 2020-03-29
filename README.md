@@ -1,4 +1,5 @@
 [![Build Status](https://dev.azure.com/kaknight47/kaknight47/_apis/build/status/keithaknight.go-rest-api-docker-gin-arangodb?branchName=master)](https://dev.azure.com/kaknight47/kaknight47/_build/latest?definitionId=1&branchName=master)
+![GitHub](https://img.shields.io/github/license/keithaknight/go-rest-api-docker-gin-arangodb)
 
 # go-rest-api-docker-gin-arangodb
 A simple Go (Golang) REST API starter project running in Docker with Gin and ArangoDB
@@ -51,3 +52,6 @@ assign a tag to the image and reference it by tag name instead.
 
 ## Calling:
 `$ curl http://localhost:8080/users/{user id}`
+
+## License:
+[MIT](http://opensource.org/licenses/MIT)
