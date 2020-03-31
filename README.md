@@ -10,7 +10,7 @@ have configured the ArangoDB settings.
 As coded, this has routes for users and companies.  Each route expects an
 ArangoDB collection with the same name.
 
-The Dockerfile uses a straged approach.  First, it creates a build container.
+The Dockerfile uses a staged approach.  First, it creates a build container.
 Then, the output is copied from the build container to the final execution
 container.  This drastically reduces the size of the production container (from
 988MB to 18MB).
